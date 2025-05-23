@@ -1,3 +1,7 @@
 git remote add origin https://github.com/Inu41123/BasesDeDatos.git
 git branch -M main
 git push -u origin main
+
+git remote add origin https://github.com/Inu41123/BasesDeDatos.git
+git branch -M main
+git push -u origindb main
