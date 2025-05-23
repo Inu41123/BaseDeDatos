@@ -1,0 +1,33 @@
+@startmindmap
+* Conceptos de base de datos
+** Definición
+*** Datos (Hechos observables)
+*** Información (Datos con significado)
+** BD: Conjunto de información y relaciones
+*** Propiedades:
+**** Integridad
+**** Coherente
+**** Mantenimiento
+**** Consistencia, polivalente, usuario
+** DBA
+*** Usuarios
+*** Data administrator
+** Tipos
+*** No SQL
+*** SQL
+** Atributos
+** Estructura
+*** SQL-DDL (Definición de datos)
+**** Crear objetos de BD
+***** Tablas, índices, vistas
+*** SQL-DML (Manipulación de datos)
+**** Insert, update, delete, select, constraints
+*** SQL-DCL (Control de acceso)
+**** Permisos de usuario
+** Redundancia
+*** Reducción
+** OLTP (Multitransacción)
+*** Multimedía
+** SQLs Análisis
+*** Transaccionales
+@endmindmap
