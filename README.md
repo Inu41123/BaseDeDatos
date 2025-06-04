@@ -9,7 +9,7 @@ Bienvenido al repositorio de **Base de Datos**, donde exploramos los fundamentos
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
 
 ## 🎯 Objetivo
-Este repositorio contiene material sobre el proceso completo de creación de bases de datos, desde el análisis inicial hasta la implementación final.
+Este repositorio contiene mate   rial sobre el proceso completo de creación de bases de datos, desde el análisis inicial hasta la implementación final.
 
 ## 📚 Temas Cubiertos
 
@@ -27,7 +27,9 @@ Este repositorio contiene material sobre el proceso completo de creación de bas
    - Esquemas relacionales
 
 ### 4. ✨ Normalización
-   - Formas normales (1FN, 2FN, 3FN)
+   - Formas normales (1FN, 2FN, 3FN).
+   ..3
+   
    - Dependencias funcionales
 
 ### 5. ⚖️ Restricciones

@@ -1,0 +1,31 @@
+------------------------------------------------------------------------------------------------------------------------------
+
+Razones de cardinalidad, entidades y atributos
+
+una biblioteca presta libros a sus lectores, cada libro tiene un titulo un autor y un numero de isbn, 
+cada lector tiene un nombre y un numero de membresia 
+
+identifica
+entidades, atribustos y relaciones, ademas de establecer las cardinalidades
+
+------------------------------------------------------------------------------------------------------------------------------
+
+un estudiambre se insecribe en cursos, cada curso tiene un nombre y un codigo, 
+cada estudiante cuenta con un numero de matriculo, un nombre y un apellido, detrminar entidades y sus atributos y 
+ademas hay que definir la relaicon inscripcion y su cardianliadad la mejor cardinalidad
+
+------------------------------------------------------------------------------------------------------------------------------
+
+un Hostpial, emplea docotores y atiende pacientes cada doctor puede anteder muchos pacientes y un pasiente 
+puede ser antendido por munchos pacientes. ademas se registra la fecha y el diagnostico de cada atencion identifiacar 
+las entidades, atributos, relaciones y razones de cardinaliad
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+un cliente necesita un sistema de ranta para sus autos, los rquerimentos que se obtuvieron fueron los siguentes
+1.- los clinetes pueden rentar varios vheiculos, pero un vheiculo solo puede estar rentado por un cliente a la vez
+2.- cada renta registra la fecha de inicio y la fecha de termino y de ahi, se calcula el total de dias que fue rentado
+2.- cad vheiculo pertence a una sucueral pera cada sucursal tiene muchos veicuo
+4.- de los clientes se debe guardar lo siguente Curp, nombre, apellido paterno y materno, (direccion: calle, numero y ciudad) y telefono 
+5.- de los vehiculos se debe tener la marca, la placa, el modelo, y el año
+6.- de las sucuerales el nombre y la ubicacion

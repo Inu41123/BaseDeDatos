@@ -5,3 +5,11 @@ git push -u origin main
 git remote add origin https://github.com/Inu41123/BasesDeDatos.git
 git branch -M main
 git push -u origindb main
+
+---------------------------------------------------------------------------------------------------------
+
+docker: 
+docker pull mcr.microsoft.com/mssql/server
+docker pull mcr.microsoft.com/mssql/server:2022-latest
+
+---------------------------------------------------------------------------------------------------------
