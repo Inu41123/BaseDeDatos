@@ -116,7 +116,6 @@
 
 ### RT3. Integración
 - **RT3.1** Capacidad para integración con pasarelas de pago  
-- **RT3.2** API RESTful bien documentada  
 
 ### RT4. Rendimiento
 - **RT4.1** Optimizado para consultas masivas (100k+ registros)  
