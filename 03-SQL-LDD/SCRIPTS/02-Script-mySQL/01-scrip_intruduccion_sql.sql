@@ -86,73 +86,77 @@ CREATE TABLE tabla2(
 );
 
 # Razon de cardinalidad 1:1 (FIDELIADA)
+# Razon de cardinalidad 1:1 (FIDELIADA)
 CREATE TABLE Employee
 (
-  Id int not null auto_increment,
-  Nombre varchar(20) not null,
-  Ap1 varchar(15) not null,
-  Ap2 varchar(15),
-  Sexo char(1) not null,
-  Salario Numeric(10,2) not null,
-  CONSTRAINT pk_employee
-  PRIMARY KEY(Id),
-  CONSTRAINT chk_Sexo2
-  CHECK(Sexo in ('M', 'F')),
-  CONSTRAINT chk_salario
-  CHECK (Salario>0.0)
+    Id INT NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(20) NOT NULL,
+    Ap1 VARCHAR(15) NOT NULL,
+    Ap2 VARCHAR(15),
+    Sexo CHAR(1) NOT NULL,
+    Salario NUMERIC(10,2) NOT NULL,
+    CONSTRAINT pk_employee
+        PRIMARY KEY(Id),
+    CONSTRAINT chk_Sexo2
+        CHECK(Sexo IN ('M', 'F')),
+    CONSTRAINT chk_salario
+        CHECK (Salario > 0.0)
 );
-
 
 CREATE TABLE Department
 (
-  Id int not null auto_increment,
-  NombreProyecto varchar(20) not null,
-  Ubicacion varchar(15) not null,
-  fechaInicio Date not null,
-  Idemployee int not null,
+    Id INT NOT NULL AUTO_INCREMENT,
+    NombreProyecto VARCHAR(20) NOT NULL,
+    Ubicacion VARCHAR(15) NOT NULL,
+    fechaInicio DATE NOT NULL,
+    Idemployee INT NOT NULL,
 
-  CONSTRAINT pk_department
-  PRIMARY KEY(Id),
+    CONSTRAINT pk_department
+        PRIMARY KEY(Id),
 
-  CONSTRAINT unique_nombreproyecto
-  UNIQUE(NombreProyecto),
+    CONSTRAINT unique_nombreproyecto
+        UNIQUE(NombreProyecto),
 
-  CONSTRAINT unique_idempleoyee
-  UNIQUE(Idemployee),
+    CONSTRAINT unique_idempleoyee
+        UNIQUE(Idemployee),
 
-  CONSTRAINT fk_department_employee
-  FOREIGN KEY (Idemployee)
-  REFERENCES Employee(Id),
+    CONSTRAINT fk_department_employee
+        FOREIGN KEY (Idemployee)
+        REFERENCES Employee(Id) -- ¡ERROR CORREGIDO AQUÍ! Se eliminó la coma extra.
 );
 
 # Razon de cardinalidad 1:1 (FIDELIADA)
 CREATE TABLE Project
 (
-  Projectid int not null auto_increment,
-  NombreProject varchar(20) not null,
-  CONSTRAINT pk_projectid
-  PRIMARY KEY(Projectid),
+    Projectid INT NOT NULL AUTO_INCREMENT,
+    NombreProject VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_projectid
+        PRIMARY KEY(Projectid),
 
-  CONSTRAINT unique_nameproject
-  UNIQUE (NombreProject)
+    CONSTRAINT unique_nameproject
+        UNIQUE (NombreProject)
 );
 
 #Razon de cardinaliad m a n
 CREATE TABLE Work_on
 (
-  employeeid int not null,
-  projectid int not null,
-  horas int not null,
+    employeeid INT NOT NULL,
+    projectid INT NOT NULL,
+    horas INT NOT NULL,
 
-  CONSTRAINT pk_work_on
-  PRIMARY KEY(employeeid, projectid),
+    CONSTRAINT pk_work_on
+        PRIMARY KEY(employeeid, projectid),
 
-  CONSTRAINT fk_work_on_employee
-  FOREIGN KEY (employeeid)
-  REFERENCES Employee(Id),
+    CONSTRAINT fk_work_on_employee
+        FOREIGN KEY (employeeid)
+        REFERENCES Employee(Id),
 
-  CONSTRAINT fk_Work_on_project
-  FOREIGN KEY (projectid)
-  REFERENCES Project(Projectid),
-
+    CONSTRAINT fk_Work_on_project
+        FOREIGN KEY (projectid)
+        REFERENCES Project(Projectid) -- ¡ERROR CORREGIDO AQUÍ! Se eliminó la coma extra.
 );
+
+drop table Employee;
+drop table Department;
+drop table Project;
+drop table Work_on;
