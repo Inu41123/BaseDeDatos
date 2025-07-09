@@ -44,7 +44,7 @@ CREATE TABLE teaches
   ssnfk int,
   coursenumfk int,
   yearfk int,
-  termfk varchar(20),
+  termfk varchar(20), 
   sectionfk varchar(20),
   
   CONSTRAINT pk_department

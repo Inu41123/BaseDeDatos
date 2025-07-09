@@ -2,4 +2,4 @@
 
 ---
 
-![Imagen de Employee](../img-diagrmas/images/SCipppp.png)
+![Imagen de Employee](../images/SCipppp.png)
