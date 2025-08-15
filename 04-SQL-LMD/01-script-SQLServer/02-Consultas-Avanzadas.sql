@@ -553,6 +553,7 @@ EXEC sp_pruebaconsulta '1989-01-01', '1989-04-06'
 
 select * from Pedidos
 
+
 -- cual es el rango de las cuotas de las cuotas asignadas de cada oficina(ciudad)
 SELECT
   O.Ciudad,
@@ -563,3 +564,257 @@ JOIN Representantes AS R
   ON O.Oficina = R.Oficina_Rep
 GROUP BY
   O.Ciudad;
+GO
+
+
+/*Consultas finales en la base de datos
+
+Vamos a explicar el gruop by
+
+como su nombre lo indica usa grupos, usa funciones de agregado y simepre nos da un resultado
+si lo pongo con un campo normal no da resultado, y se es necesario agruparlo
+*/
+
+
+USE BDEJEMPLO2;
+GO
+
+SELECT
+    o.Ciudad AS [CUIDAD],
+    r.Nombre AS [NOMBRE],
+    Max(r.Cuota) AS [CUOTA MAXIMA],
+    Min(r.Cuota) [CUOTA MINIMA],
+    (Max(r.Cuota) - Min(r.Cuota)) AS [RANGO]
+FROM
+    Representantes AS r
+INNER JOIN
+    Oficinas AS o ON o.Oficina = r.Oficina_Rep
+GROUP BY
+    o.Ciudad,
+    r.Nombre
+ORDER BY
+    o.Ciudad;
+GO
+
+
+USE NORTHWND;
+GO
+
+/******
+	1) Seleccionar el ingreso total por cliente (dinero) en 1997 y ordenado por el ingreso de forma decendente
+*/
+
+SELECT 
+	(c.CompanyName) AS [Cliente],
+	SUM(od.Quantity * od.UnitPrice * (1- od.Discount)) AS [Ingreso]
+
+FROM [Order Details] AS od
+
+INNER JOIN
+Orders AS o
+ON od.OrderID = o.OrderID
+
+INNER JOIN 
+Customers AS c
+ON o.CustomerID = c.CustomerID
+WHERE YEAR(o.OrderDate) = 1997
+GROUP BY c.CompanyName
+;
+GO
+
+-- la misma pero diferente
+SELECT 
+	(c.CompanyName) AS [Cliente],
+	ROUND((SUM(od.Quantity * od.UnitPrice * (1- od.Discount))),2) AS [Ingreso]
+
+FROM [Order Details] AS od
+
+INNER JOIN
+Orders AS o
+ON od.OrderID = o.OrderID
+
+INNER JOIN 
+Customers AS c
+ON o.CustomerID = c.CustomerID
+WHERE DATEPART(yyyy,o.OrderDate) = 1997
+GROUP BY c.CompanyName
+ORDER BY 2 DESC
+;
+GO
+
+-- LA OPTIAMA ES EL 2, PERO ESTAS SON OTRAS MANERAS
+/*
+SELECT 
+	(c.CompanyName) AS [Cliente],
+	ROUND((SUM(od.Quantity * od.UnitPrice * (1- od.Discount))),2) AS [Ingreso]
+
+FROM [Order Details] AS od
+
+INNER JOIN
+Orders AS o
+ON od.OrderID = o.OrderID
+
+INNER JOIN 
+Customers AS c
+ON o.CustomerID = c.CustomerID
+WHERE DATEPART(yyyy,o.OrderDate) = 1997
+GROUP BY c.CompanyName
+ORDER BY ROUND((SUM(od.Quantity * od.UnitPrice * (1- od.Discount))),2) DESC
+;
+
+
+-- la misma pero diferente
+SELECT 
+	(c.CompanyName) AS [Cliente],
+	ROUND((SUM(od.Quantity * od.UnitPrice * (1- od.Discount))),2) AS [Ingreso]
+
+FROM [Order Details] AS od
+
+INNER JOIN
+Orders AS o
+ON od.OrderID = o.OrderID
+
+INNER JOIN 
+Customers AS c
+ON o.CustomerID = c.CustomerID
+WHERE DATEPART(yyyy,o.OrderDate) = 1997
+GROUP BY c.CompanyName
+ORDER BY [INGRESO] DESC
+;
+*/
+
+-- la misma pero USANDO TOP
+SELECT 
+	TOP 10(c.CompanyName) AS [Cliente],
+	ROUND((SUM(od.Quantity * od.UnitPrice * (1- od.Discount))),2) AS [Ingreso]
+
+FROM [Order Details] AS od
+
+INNER JOIN
+Orders AS o
+ON od.OrderID = o.OrderID
+
+INNER JOIN 
+Customers AS c
+ON o.CustomerID = c.CustomerID
+WHERE DATEPART(yyyy,o.OrderDate) = 1997
+GROUP BY c.CompanyName
+ORDER BY 2 DESC
+;
+GO
+
+/*
+	2) Seleccionar los productos por categoria  mas vendidos(unidades)
+enviados a aalemania ordenados por categoira y detnro de categoria po unidad de forma desc
+*/
+
+
+/*
+para elimianr algo de una base de datos pero que no sea necesaraiamente el rpiemro se necesita el dealte on cascada
+digamos
+ON DELATE CASCADE
+
+id  | nombre                         productos
+------------
+1	|c1
+2	|c2
+3	|c3
+
+CREATE TABLE products(
+id int not null identity(1,1)
+
+
+
+
+);
+
+
+
+existen 4
+
+NO ACTION
+CASCADE			ON DELATE
+SET  ULL		ON UPDATE
+SET DEFAULT
+
+O tambien puede ser asi
+DELETE FROM Productors
+where categorias = 1;
+DELATE FROM Categorias
+Where id = 1
+*/
+
+SELECT
+	c.CategoryName AS [CATEGORIA],
+	SUM(od.Quantity) AS [UNIDADES]
+FROM [Order Details] AS od
+INNER JOIN
+Orders AS O
+ON o.OrderID = od.OrderID
+INNER JOIN
+Products AS p
+ON p.ProductID = od.ProductID
+INNER JOIN
+Categories AS c
+ON c.CategoryID = p.CategoryID
+GROUP BY c.CategoryName;
+
+
+-- segundo ejemplo COMPLETO
+SELECT
+	c.CategoryName AS [CATEGORIA],
+	p.ProductName AS [Product],
+	SUM(od.Quantity) AS [UNIDADES]
+FROM [Order Details] AS od
+INNER JOIN
+Orders AS O
+ON o.OrderID = od.OrderID
+INNER JOIN
+Products AS p
+ON p.ProductID = od.ProductID
+INNER JOIN
+Categories AS c
+ON c.CategoryID = p.CategoryID
+WHERE o.ShipCountry = 'Germany'
+GROUP BY c.CategoryName, p.ProductName
+ORDER BY 1, [Unidades]DESC;
+
+/*
+3) seleccionar los empledos con mas pedidos realizados por año,
+ordenados por año y por numero de pedidos
+*/
+
+SELECT
+    YEAR(O.OrderDate) AS [Anio],
+    E.FirstName,
+    E.LastName,
+    COUNT(O.OrderID) AS [NumeroDePedidos]
+FROM
+    Employees AS E
+INNER JOIN
+    Orders AS O ON E.EmployeeID = O.EmployeeID
+GROUP BY
+    YEAR(O.OrderDate),
+    E.FirstName,
+    E.LastName
+ORDER BY
+    Anio,
+    NumeroDePedidos DESC;
+
+
+--Otra forma de resolverlo
+
+SELECT 
+	CONCAT(e.FirstName, ' ', e.LastName) AS [Empleado],
+	DATEPART(yyyy, o.OrderDate) AS [AÑO],
+	COUNT(*) AS [Numero Pedidos]
+FROM Orders AS o
+INNER JOIN Employees AS e
+ON o.EmployeeID = e.EmployeeID
+GROUP BY CONCAT(e.FirstName, ' ', e.LastName), DATEPART(yyyy, o.OrderDate)
+ORDER BY
+    [AÑO],
+    [Numero Pedidos] DESC;
+
+
+--
